@@ -13,7 +13,7 @@ async function callGemini(model, prompt) {
     );
   }
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
 
   const body = {
     contents: [{ parts: [{ text: prompt }] }],
@@ -22,7 +22,10 @@ async function callGemini(model, prompt) {
 
   const res = await fetch(url, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "X-Goog-Api-Key": apiKey,
+    },
     body: JSON.stringify(body),
   });
 
